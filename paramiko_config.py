@@ -9,7 +9,7 @@ password = os.environ.get("PASSWORD")
 
 client = paramiko.SSHClient()
 client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-username='wao'
+username = 'mini'
 def connect_to_pc():
 
     try:
@@ -21,6 +21,6 @@ def connect_to_pc():
         return dict(status=False,msg=str(e))
         
 
-def close_connection():
+def close_connection(client):
     client.close()
     
