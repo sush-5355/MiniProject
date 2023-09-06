@@ -49,5 +49,5 @@ def executeCommand(command:str):
     err = stderr.read().decode()
     if err!='':
         return dict(status=False,response=err)
-    output = dict(status= True,response= stdout.read().decode())
+    output = dict(status= True,response= stdout.readlines())
     return output

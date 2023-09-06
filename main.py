@@ -10,7 +10,7 @@ def chrome():
     command = ['wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb',
                'sudo dpkg -i google-chrome-stable_current_amd64.deb']
     for com in command:
-        executeCommand(command=com)
+        executeCommandInstall(command=com)
 
 
 def version():
@@ -22,7 +22,9 @@ def version():
 def host():
     # checkhostname
     command = 'hostname'
-    print(executeCommand(command=command))
+    response = executeCommand(command=command)
+    response['response'] = response['response'][-1].strip()
+    print(response)
 
 
 def ipconf():
@@ -35,20 +37,20 @@ print(' Welcome to the Automation world '.upper().center(columns,'#'))
 print()
 input_dict = {'1': 'Check Hostame',
               '2': 'Check IP Address',
-              '3': 'check Hostname',
+              '3': 'check Version',
               '4': 'Install Chrome'
               }
 
 print(json.dumps(input_dict, indent=4)+'\n')
 
-n = input('Enter the value : ')
+n = int(input('Enter the value : '))
 
 if n == 1:
     host()
 elif n == 2:
     ipconf()
 elif n == 3:
-    host()
+    version()
 elif n == 4:
     chrome()
 else:
