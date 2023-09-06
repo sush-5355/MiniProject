@@ -71,7 +71,7 @@ def create(index_name, mapping:dict):
     index_exists = es.indices.exists(index=index_name)
     if not index_exists:
         es.indices.create(index=index_name)
-    mapping.update({'created_at':convert_date(),'updated_at':convert_date()})
+    # mapping.update({'created_at':convert_date(),'updated_at':convert_date()})
     response = es.index(index=index_name, body=mapping)
     response_get_by_id =   get_by_id(index_name=index_name, id=response['_id'])
     try:

@@ -10,7 +10,7 @@ url = f'http://{host}:{port}'
 
 es = Elasticsearch([url],
                     # http_auth=(username, password),
-                   verify_certs=False,timeout=100 
+                   verify_certs=False,timeout=30
                    )
 
 # es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
