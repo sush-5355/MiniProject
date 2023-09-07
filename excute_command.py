@@ -1,6 +1,3 @@
-import imp
-from re import T
-from urllib import response
 from paramiko_config import connect_to_pc,password,close_connection
 from tqdm import tqdm
 
@@ -23,9 +20,9 @@ def executeCommandInstall(command:str):
     while not stdout.channel.exit_status_ready():
         line = stdout.readline().strip()
         if line:
-            # Check if the line contains progress information (e.g., "[50%]")
-            if any(progress_symbol in line for progress_symbol in ["[", "]"]):
-                progress_bar.update(1)
+            # # Check if the line contains progress information (e.g., "[50%]")
+            # if any(progress_symbol in line for progress_symbol in ["[", "]"]):
+            #     progress_bar.update(1)
             # Print the line
             print(line)
 
