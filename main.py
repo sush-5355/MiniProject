@@ -15,8 +15,10 @@ def chrome():
 
 def version():
     # check ubuntu version
-    command = 'lsb_release -a'
-    print(executeCommand(command=command))
+    command = 'hostnamectl | grep Operating'
+    response = executeCommand(command=command)
+    response['response'] = response['response'][-1].strip()
+    print(response)
 
 
 def host():
@@ -29,8 +31,10 @@ def host():
 
 def ipconf():
     # check ip addressess
-    command = ['ifconfig']
-    print(executeCommand(command=command))
+    command = 'hostname -I'
+    response = executeCommand(command=command)
+    response['response'] = response['response'][-1].strip()
+    print(response)
 
 
 print(' Welcome to the Automation world '.upper().center(columns,'#'))
