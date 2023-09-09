@@ -37,12 +37,28 @@ def ipconf():
     print(response)
 
 
+def checkTimezone():
+    command = 'timedatectl | grep Local'
+    response = executeCommand(command=command)
+    print(response['response'][-1].strip())
+    command = 'timedatectl | grep "Time zone"'
+    responseDict = {}
+    response = executeCommand(command=command)
+    print(response['response'][-1].strip())
+    
+    # response = response['response'][1:]
+    # for res in response:
+    #     responseDict.update({res.split(':',1)[0].strip():res.split(':',1)[1].strip()})
+    
+    
+
 print(' Welcome to the Automation world '.upper().center(columns,'#'))
 print()
 input_dict = {'1': 'Check Hostame',
               '2': 'Check IP Address',
               '3': 'check Version',
-              '4': 'Install Chrome'
+              '4': 'Install Chrome',
+              '5': 'Timezone'
               }
 
 print(json.dumps(input_dict, indent=4)+'\n')
@@ -57,6 +73,8 @@ elif n == 3:
     version()
 elif n == 4:
     chrome()
+elif n ==5:
+    checkTimezone()
 else:
     pass
 
