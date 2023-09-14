@@ -1,3 +1,4 @@
+import json
 import paramiko
 import os
 from dotenv import load_dotenv
@@ -6,7 +7,9 @@ load_dotenv(dotenv_path='.env')
 hostname = os.environ.get("HOSTNAME")
 username = os.environ.get("USERNAME")
 password = os.environ.get("PASSWORD")
-
+# hostname = '192.168.41.130'
+# username , password = 'wao','wao'
+# hostname = '192.168.216.129 '
 client = paramiko.SSHClient()
 client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 username = 'mini'
