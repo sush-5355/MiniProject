@@ -29,8 +29,11 @@ def host():
 
 def ipconf():
     # check ip addressess
-    command = ['ifconfig']
-    print(executeCommand(command=command))
+    command = 'ifconfig | grep 192'
+    response = executeCommand(command=command)
+    response['response'] = response['response'][-1].strip().split()[1]
+    
+    print(response)
 
 
 print(' Welcome to the Automation world '.upper().center(columns,'#'))
