@@ -7,7 +7,8 @@ from dotenv import load_dotenv
 # username = os.environ.get("USERNAME")
 # password = os.environ.get("PASSWORD")
 hostname = '192.168.41.130'
-username , password = 'wao','wao'
+# username , password = 'wao','wao'
+username , password = 'newuser1','newuser1'
 
 client = paramiko.SSHClient()
 client.set_missing_host_key_policy(paramiko.AutoAddPolicy())

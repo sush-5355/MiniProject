@@ -7,6 +7,8 @@ def executeCommandInstall(command:str):
     client = connect_to_pc()
 
     client = client.get('connectionClient')
+    if client['status'] == False:
+        return 'Not Connected'
     stdin,stdout,stderr = client.exec_command(command=command,get_pty=True)
     stdin.write(f'{password}\n')
     stdin.flush()
@@ -39,6 +41,8 @@ def executeCommand(command:str):
 
     client = connect_to_pc()
 
+    if client['status'] == False:
+        return 'Not Connected'
     client = client.get('connectionClient')
     stdin,stdout,stderr = client.exec_command(command=command,get_pty=True)
     stdin.write(f'{password}\n')
