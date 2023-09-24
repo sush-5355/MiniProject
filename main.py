@@ -36,6 +36,7 @@ def ipconf():
     command = 'hostname -I'
     response = executeCommand(command=command)
     response['response'] = response['response'][-1].strip()
+    
     print(response)
 
 
