@@ -132,7 +132,7 @@ while True:
         version()
     elif n == 4:
         chrome()
-    elif n ==5:45
+    elif n ==5:
         checkTimezone()
     elif n == 6:
         createNewUser()
