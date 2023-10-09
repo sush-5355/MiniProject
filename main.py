@@ -1,4 +1,5 @@
 
+import sys
 from excute_command import executeCommand, executeCommandInstall
 import json
 import shutil
@@ -109,31 +110,31 @@ def createNewUser():
 
 print(' Welcome to the Automation world '.upper().center(columns,'#'))
 print()
-input_dict = {'1': 'Check Hostame',
+
+
+
+
+while True:
+    input_dict = {'1': 'Check Hostame',
               '2': 'Check IP Address',
               '3': 'check Version',
               '4': 'Install Chrome',
               '5': 'Timezone',
               '6':'Creat a new user'
               }
-
-print(json.dumps(input_dict, indent=4)+'\n')
-
-n = int(input('Enter the value : '))
-
-if n == 1:
-    host()
-elif n == 2:
-    ipconf()
-elif n == 3:
-    version()
-elif n == 4:
-    chrome()
-elif n ==5:
-    checkTimezone()
-elif n == 6:
-    createNewUser()
-else:
-    pass
-
-
+    print(json.dumps(input_dict, indent=4)+'\n')
+    n = int(input('Enter the value : '))
+    if n == 1:
+        host()
+    elif n == 2:
+        ipconf()
+    elif n == 3:
+        version()
+    elif n == 4:
+        chrome()
+    elif n ==5:45
+        checkTimezone()
+    elif n == 6:
+        createNewUser()
+    else:
+        sys.exit()

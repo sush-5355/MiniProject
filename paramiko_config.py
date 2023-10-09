@@ -2,14 +2,14 @@ import json
 import paramiko
 import os
 from dotenv import load_dotenv
-# load_dotenv(dotenv_path='.env')
+load_dotenv(dotenv_path='.env')
 
 # hostname = os.environ.get("HOSTNAME")
 # username = os.environ.get("USERNAME")
 # password = os.environ.get("PASSWORD")
-hostname = '192.168.41.130'
+# hostname = '192.168.41.130'
 # username , password = 'wao','wao'
-username , password = 'newuser1','newuser1'
+# username , password = 'newuser1','newuser1'
 
 hostname = os.environ.get("HOSTNAME")
 username = os.environ.get("USERNAME")
