@@ -14,42 +14,40 @@ def chrome():
                'sudo dpkg -i google-chrome-stable_current_amd64.deb']
     for com in command:
         executeCommandInstall(command=com)
-
+chrome()
 
 def version():
     # check ubuntu version
     command = 'hostnamectl | grep Operating'
     response = executeCommand(command=command)
-    response['response'] = response['response'][-1].strip()
-    print(response)
-
+    response['response'] = response['response'][-1].split(':',1)[-1].strip()
+    return response
 
 def host():
     # checkhostname
     command = 'hostname'
     response = executeCommand(command=command)
     response['response'] = response['response'][-1].strip()
-    print(response)
-
+    return response
 
 def ipconf():
     # check ip addressess
     command = 'hostname -I'
     response = executeCommand(command=command)
     response['response'] = response['response'][-1].strip()
-    
-    print(response)
+    return response
 
 
 def checkTimezone():
     # check timezone
+    responseDict = {}
     command = 'timedatectl | grep Local'
     response = executeCommand(command=command)
-    print(response['response'][-1].strip())
+    responseDict['local_time']=response['response'][-1].split(':',1)[-1].strip()
     command = 'timedatectl | grep "Time zone"'
-    responseDict = {}
     response = executeCommand(command=command)
-    print(response['response'][-1].strip())
+    responseDict['time_zone'] = response['response'][-1].split(':',1)[-1].strip()
+    return responseDict
     
     # response = response['response'][1:]
     # for res in response:
@@ -106,35 +104,39 @@ def createNewUser():
 
     ssh.close()
 
+def install_vlc():
+    command = ['sudo apt install snapd','sudo snap install vlc']
+    for com in command:
+        executeCommandInstall(command=com)
     
 
-print(' Welcome to the Automation world '.upper().center(columns,'#'))
-print()
+# print(' Welcome to the Automation world '.upper().center(columns,'#'))
+# print()
 
 
 
 
-while True:
-    input_dict = {'1': 'Check Hostame',
-              '2': 'Check IP Address',
-              '3': 'check Version',
-              '4': 'Install Chrome',
-              '5': 'Timezone',
-              '6':'Creat a new user'
-              }
-    print(json.dumps(input_dict, indent=4)+'\n')
-    n = int(input('Enter the value : '))
-    if n == 1:
-        host()
-    elif n == 2:
-        ipconf()
-    elif n == 3:
-        version()
-    elif n == 4:
-        chrome()
-    elif n ==5:
-        checkTimezone()
-    elif n == 6:
-        createNewUser()
-    else:
-        sys.exit()
+# while True:
+#     input_dict = {'1': 'Check Hostame',
+#               '2': 'Check IP Address',
+#               '3': 'check Version',
+#               '4': 'Install Chrome',
+#               '5': 'Timezone',
+#               '6':'Creat a new user'
+#               }
+#     print(json.dumps(input_dict, indent=4)+'\n')
+#     n = int(input('Enter the value : '))
+#     if n == 1:
+#         host()
+#     elif n == 2:
+#         ipconf()
+#     elif n == 3:
+#         version()
+#     elif n == 4:
+#         chrome()
+#     elif n ==5:
+#         checkTimezone()
+#     elif n == 6:
+#         createNewUser()
+#     else:
+#         sys.exit()

@@ -10,5 +10,3 @@ url = f'http://{host}:{port}'
 es = Elasticsearch([url],
                    verify_certs=False,timeout=30
                    )
-
-print(es.ping())
