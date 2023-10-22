@@ -42,10 +42,10 @@ def checkTimezone():
     responseDict = {}
     command = 'timedatectl | grep Local'
     response = executeCommand(command=command)
-    responseDict['local_time']=response['response'][-1].split(':',1)[-1].strip()
+    responseDict['destination_local_time']=response['response'][-1].split(':',1)[-1].strip()
     command = 'timedatectl | grep "Time zone"'
     response = executeCommand(command=command)
-    responseDict['time_zone'] = response['response'][-1].split(':',1)[-1].strip()
+    responseDict['destination_time_zone'] = response['response'][-1].split(':',1)[-1].strip()
     return responseDict
     
     # response = response['response'][1:]
