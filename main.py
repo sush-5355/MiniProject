@@ -14,7 +14,6 @@ def chrome():
                'sudo dpkg -i google-chrome-stable_current_amd64.deb']
     for com in command:
         executeCommandInstall(command=com)
-chrome()
 
 def version():
     # check ubuntu version

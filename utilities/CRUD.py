@@ -75,7 +75,7 @@ def create(index_name, mapping:dict):
     response = es.index(index=index_name, body=mapping)
     response_get_by_id =   get_by_id(index_name=index_name, id=response['_id'])
     try:
-        response_get_by_id.update({'id': response['_id']})
+        # response_get_by_id.update({'id': response['_id']})
         response_update =   update_by_id(index_name=index_name, id=response['_id'], doc=response_get_by_id)
         return   get_by_id(index_name=index_name, id=response_update['_id'])
     except Exception as e:
