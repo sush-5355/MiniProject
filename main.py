@@ -1,12 +1,7 @@
 
-import sys
 from excute_command import executeCommand, executeCommandInstall
-import json
-import shutil
+from paramiko_config import connect_to_pc, password
 
-from paramiko_config import connect_to_pc,password
-
-columns = shutil.get_terminal_size().columns
 
 def chrome():
     # install chrome
@@ -15,12 +10,14 @@ def chrome():
     for com in command:
         executeCommandInstall(command=com)
 
+
 def version():
     # check ubuntu version
     command = 'hostnamectl | grep Operating'
     response = executeCommand(command=command)
-    response['response'] = response['response'][-1].split(':',1)[-1].strip()
+    response['response'] = response['response'][-1].split(':', 1)[-1].strip()
     return response
+
 
 def host():
     # checkhostname
@@ -28,6 +25,7 @@ def host():
     response = executeCommand(command=command)
     response['response'] = response['response'][-1].strip()
     return response
+
 
 def ipconf():
     # check ip addressess
@@ -38,29 +36,24 @@ def ipconf():
 
 
 def checkTimezone():
-    # check timezone
     responseDict = {}
     command = 'timedatectl | grep Local'
     response = executeCommand(command=command)
-    responseDict['destination_local_time']=response['response'][-1].split(':',1)[-1].strip()
+    responseDict['destination_local_time'] = response['response'][-1].split(
+        ':', 1)[-1].strip()
     command = 'timedatectl | grep "Time zone"'
     response = executeCommand(command=command)
-    responseDict['destination_time_zone'] = response['response'][-1].split(':',1)[-1].strip()
+    responseDict['destination_time_zone'] = response['response'][-1].split(
+        ':', 1)[-1].strip()
     return responseDict
-    
-    # response = response['response'][1:]
-    # for res in response:
-    #     responseDict.update({res.split(':',1)[0].strip():res.split(':',1)[1].strip()})
-    
+
 
 def createNewUser():
     client = connect_to_pc()
     ssh = client.get('connectionClient')
-    
-    
-
     new_username = input('Enter the username : ')
-    new_password = input('Enter the new password : ')# Set a secure password for the new user
+    # Set a secure password for the new user
+    new_password = input('Enter the new password : ')
 
     # Create the new user with administrative privileges
     create_user_command = f'sudo useradd -m -s /bin/bash {new_username}'
@@ -78,10 +71,10 @@ def createNewUser():
         print(f"Error creating the user: {error_output}")
     else:
         print(f"User '{new_username}' created with administrative privileges.")
-
     add_to_sudoers_command = f'echo "{new_username} ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers'
     # Execute the command
-    stdin, stdout, stderr = ssh.exec_command(add_to_sudoers_command, get_pty=True)
+    stdin, stdout, stderr = ssh.exec_command(
+        add_to_sudoers_command, get_pty=True)
     stdin.write(f'{password}\n')
     stdin.flush()
     # Check for errors
@@ -90,7 +83,6 @@ def createNewUser():
         print(f"Error adding '{new_username}' to sudoers: {error_output}")
     else:
         print(f"User '{new_username}' created with administrative privileges.")
-
     add_home_dir = f'sudo chown -R {new_username}:{new_password} /home/{new_username}'
     stdin, stdout, stderr = ssh.exec_command(add_home_dir, get_pty=True)
     stdin.write(f'{password}\n')
@@ -100,42 +92,24 @@ def createNewUser():
         print(f"Error adding '{new_username}' home dir : {error_output}")
     else:
         print(f"User '{new_username}' home dir with administrative privileges.")
-
     ssh.close()
 
+
 def install_vlc():
-    command = ['sudo apt install snapd','sudo snap install vlc']
+    command = ['sudo apt install snapd', 'sudo snap install vlc']
     for com in command:
         executeCommandInstall(command=com)
-    
-
-# print(' Welcome to the Automation world '.upper().center(columns,'#'))
-# print()
 
 
+def install_skype():
+    command = ['wget https://repo.skype.com/latest/skypeforlinux-64.deb',
+               'sudo dpkg -i skypeforlinux-64.deb']
+    for com in command:
+        executeCommandInstall(command=com)
 
 
-# while True:
-#     input_dict = {'1': 'Check Hostame',
-#               '2': 'Check IP Address',
-#               '3': 'check Version',
-#               '4': 'Install Chrome',
-#               '5': 'Timezone',
-#               '6':'Creat a new user'
-#               }
-#     print(json.dumps(input_dict, indent=4)+'\n')
-#     n = int(input('Enter the value : '))
-#     if n == 1:
-#         host()
-#     elif n == 2:
-#         ipconf()
-#     elif n == 3:
-#         version()
-#     elif n == 4:
-#         chrome()
-#     elif n ==5:
-#         checkTimezone()
-#     elif n == 6:
-#         createNewUser()
-#     else:
-#         sys.exit()
+def install_teamviewer():
+    command = ['wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb',
+               'sudo apt install ./teamviewer_amd64.deb -y']
+    for com in command:
+        print(executeCommandInstall(command=com))

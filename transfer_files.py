@@ -1,6 +1,14 @@
 import os
+import time
 from paramiko_config import connect_to_pc
 import progressbar
+from check_installation import check_os_details
+from utilities.CRUD import create
+# Specify the relative path to the file or directory
+relative_path = "files"
+
+# Get the absolute path
+absolute_path = os.path.abspath(relative_path)
 
 
 def transfer_files():
@@ -12,31 +20,41 @@ def transfer_files():
     client = connection['connectionClient']
     sftpClient = client.open_sftp()
 
-    local_path = r"I:\Compressed\creditcard.csv.zip"
-    remote_path = '/home/wao/Documents/a.zip'
-
     try:
-        local_file_size = os.path.getsize(local_path)
-        widgets = [progressbar.Percentage(), ' ', progressbar.Bar(fill='@'), ' ', progressbar.ETA(format='ETA:  %(eta)8s')]
-        progress = progressbar.ProgressBar(widgets=widgets, maxval=local_file_size).start()
-        transferred = 0
-        block_size = 8192  # Adjust this value as needed
-        with open(local_path, 'rb') as local_file, sftpClient.file(remote_path, 'wb') as remote_file:
-            while True:
-                data = local_file.read(block_size)
-                if not data:
-                    break
-                remote_file.write(data)
-                transferred += len(data)
-                progress.update(transferred)
-        progress.finish()
-        print('File sent successfully')
+        files = os.listdir(absolute_path)
+        for file in files:
+            local_path = os.path.join(absolute_path,file)
+            local_file_size = os.path.getsize(local_path)
+            remote_path = f'/home/mini/Documents/{file}'
+            print(file)
+            widgets = [progressbar.Percentage(), ' ', progressbar.Bar(fill='>'), ' ', progressbar.ETA(format='ETA:  %(eta)8s')]
+            progress = progressbar.ProgressBar(widgets=widgets, maxval=local_file_size).start()
+            transferred = 0
+            block_size = 8192  # Adjust this value as needed
+            start = time.time()
+            with open(local_path, 'rb') as local_file, sftpClient.file(remote_path, 'wb') as remote_file:
+                while True:
+                    data = local_file.read(block_size)
+                    if not data:
+                        break
+                    remote_file.write(data)
+                    transferred += len(data)
+                    progress.update(transferred)
+            progress.finish()
+            time_taken = time.time() - start
+            print('File sent successfully')
+            output = {}
+            output.update(check_os_details())
+            output['file_name'] = file
+            output['output_path'] = remote_path
+            output['file_size'] = local_file_size
+            output['time_taken'] = time_taken
+            output['file_type'] = file.split('.')[-1]
+            response = create(index_name='miniproject_installed_files',mapping=output)
+            print(response)
+
     except Exception as e:
         print(f'Error transferring file: {str(e)}')
     finally:
         sftpClient.close()
         client.close()
-
-# Example usage:
-result = transfer_files()
-print(result)
