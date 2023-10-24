@@ -67,11 +67,13 @@ def changeTimeZone():
                     command = [f'sudo timedatectl set-timezone {tz}']
                     for com in command:
                         executeCommandInstall(command=com)
+                    print(checkTimezone())
                 if n == 2:
                     tz = 'Asia/Kolkata'
                     command = [f'sudo timedatectl set-timezone {tz}']
                     for com in command:
                         executeCommandInstall(command=com)
+                    print(checkTimezone())
                 elif n == 3:
                     break
                 else:
