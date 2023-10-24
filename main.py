@@ -1,4 +1,5 @@
 
+import json
 from excute_command import executeCommand, executeCommandInstall
 from paramiko_config import connect_to_pc, password
 
@@ -46,6 +47,37 @@ def checkTimezone():
     responseDict['destination_time_zone'] = response['response'][-1].split(
         ':', 1)[-1].strip()
     return responseDict
+
+
+def changeTimeZone():
+    while True:
+        print('''Below is the list of Time Zones
+            Select from below
+            1 - UTC
+            2 - Aisa/Kolkata
+            3 - Exit
+            ''')
+        
+        n = input('\n Enter the choice of Time Zone : ')
+        if n:
+            if n.isdigit():
+                n = int(n)
+                if n == 1:
+                    tz = 'UTC'
+                    command = [f'sudo timedatectl set-timezone {tz}']
+                    for com in command:
+                        executeCommandInstall(command=com)
+                if n == 2:
+                    tz = 'Asia/Kolkata'
+                    command = [f'sudo timedatectl set-timezone {tz}']
+                    for com in command:
+                        executeCommandInstall(command=com)
+                elif n == 3:
+                    break
+                else:
+                    pass
+            else:
+                print('Please try again with valid input. Only digits allowed !!!')
 
 
 def createNewUser():

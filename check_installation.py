@@ -61,9 +61,3 @@ def push_to_elastic():
     chrome.update(osdetail)
     response = create(index_name='miniproject', mapping=chrome)
     print(response)
-
-
-
-
-
-
