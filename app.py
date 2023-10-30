@@ -2,9 +2,10 @@ import json
 import shutil
 import time
 from constant import *
-from check_installation import push_to_elastic
+from check_installation import check_chrome_install, check_os_details, push_to_elastic,check_teamviewer_install,check_vlc_install
 from main import chrome, install_vlc, install_skype, install_teamviewer,createNewUser,changeTimeZone
 from transfer_files import transfer_files
+from utilities.CRUD import create
 terminal_columns, _ = shutil.get_terminal_size()
 
 
@@ -32,7 +33,7 @@ while True:
     print(INPUT_DICT)
     print()
     n = input('Enter your choice : ')
-    print()
+    print('\n')
     if n.isdigit():
         n = int(n)
         if n == 1:
@@ -40,27 +41,55 @@ while True:
         elif n == 2:
             while True:
                 print(LIST_OF_APPS)
-                print()
                 m = int(input('Enter your choice for installation : '))
-                print()
+                print('\n')
                 if m == 1:
-                    chrome()
+                    if not check_chrome_install()['installed']:
+                        start = time.time()
+                        chrome()
+                        dic = dict(name='Google Chrome',time_elapsed=time.time()-start)
+                        dic.update(check_os_details())
+                        create(index_name='miniproject_installed_apps',mapping=dic)
+                        print('\n\n Google Chrome successfully installed !!!')
+                        
+                    else:
+                        print('\n\n Google Chrome already installed !!!')
                 elif m == 2:
-                    install_vlc()
-                elif m == 3:
-                    install_skype()
+                    if not check_vlc_install()['installed']:
+                        start = time.time()
+                        install_vlc()
+                        dic = dict(name='VLC Media Player',time_elapsed=time.time()-start)
+                        dic.update(check_os_details())
+                        create(index_name='miniproject_installed_apps',mapping=dic)
+                        print('\n\n VLC Media Player successfully installed !!!')
+                    else:
+                        print('\n\n VLC Media Player already installed !!!')
+               
+                    
+                elif m ==3:
+                    if not check_teamviewer_install()['installed']:
+                        start = time.time()
+                        install_teamviewer()
+                        dic = dict(name='TeamViewer',time_elapsed=time.time()-start)
+                        dic.update(check_os_details())
+                        create(index_name='miniproject_installed_apps',mapping=dic)
+                        print('\n\n TeamViewer successfully installed !!!')
+                    else:
+                        print('\n\n TeamViewer already installed !!!')
+                    
                 elif m == 4:
-                    install_teamviewer()
-                elif m == 5:
+                    start = time.time()
                     chrome()
-                    install_skype()
                     install_teamviewer()
                     install_vlc()
-                    print('\n ALL APPLICATIONS INSTALLED SUCCESSFULLY !!! \n')
-                elif m == 6:
+                    dic = dict(name = 'ALL',time_elapsed=time.time()-start)
+                    dic.update(check_os_details())
+                    create(index_name='miniproject_installed_apps',mapping=dic)
+                    print('\n\n ALL APPLICATIONS INSTALLED SUCCESSFULLY !!! \n')
+                elif m == 5:
                     break
                 else:
-                    print('Please retry from above options only !!!')
+                    print('\n\n Please retry from above options only !!!')
                     pass
         elif n == 3:
             print(TRANSFER_FILES)

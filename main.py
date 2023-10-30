@@ -1,15 +1,16 @@
-
 import json
 from excute_command import executeCommand, executeCommandInstall
 from paramiko_config import connect_to_pc, password
 
-
 def chrome():
+    
     # install chrome
     command = ['wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb',
-               'sudo dpkg -i google-chrome-stable_current_amd64.deb']
+            'sudo dpkg -i google-chrome-stable_current_amd64.deb']
     for com in command:
         executeCommandInstall(command=com)
+    
+    
 
 
 def version():
@@ -67,13 +68,13 @@ def changeTimeZone():
                     command = [f'sudo timedatectl set-timezone {tz}']
                     for com in command:
                         executeCommandInstall(command=com)
-                    print(checkTimezone())
+                    print('\n',json.dumps(checkTimezone(),indent=4))
                 if n == 2:
                     tz = 'Asia/Kolkata'
                     command = [f'sudo timedatectl set-timezone {tz}']
                     for com in command:
                         executeCommandInstall(command=com)
-                    print(checkTimezone())
+                    print('\n',json.dumps(checkTimezone(),indent=4))
                 elif n == 3:
                     break
                 else:

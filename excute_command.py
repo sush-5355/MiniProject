@@ -23,8 +23,8 @@ def executeCommandInstall(command:str):
         line = stdout.readline().strip()
         if line:
             # # Check if the line contains progress information (e.g., "[50%]")
-            # if any(progress_symbol in line for progress_symbol in ["[", "]"]):
-            #     progress_bar.update(1)
+            if any(progress_symbol in line for progress_symbol in ["[", "]"]):
+                progress_bar.update(1)
             # Print the line
             print(line)
 

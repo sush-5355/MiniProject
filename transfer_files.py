@@ -50,7 +50,7 @@ def transfer_files():
             output['file_size'] = local_file_size
             output['time_taken'] = time_taken
             output['file_type'] = file.split('.')[-1]
-            response = create(index_name='miniproject_installed_files',mapping=output)
+            response = create(index_name='miniproject_transfered_files',mapping=output)
             print(response)
 
     except Exception as e:

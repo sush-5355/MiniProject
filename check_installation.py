@@ -11,7 +11,7 @@ def check_os_details():
                     destination_ip=ipconf()['response'],
                     source_ip=ip_address,
                     destination_os_version=version()['response'],
-                    timestamp=datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%S'))
+                    timestamp=datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S'))
     response.update(checkTimezone())
     return response
 
