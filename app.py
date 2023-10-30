@@ -17,7 +17,6 @@ print(f"#{centered_text}#")
 print(line_of_hashes)
 time.sleep(1)
 print('\n'*5)
-# print('Project Description', DESCRIPTION)
 print('Project Description')
 for char in DESCRIPTION:
     print(char, end='', flush=True)  # Use end='' to avoid newline and flush=True to force immediate printing
