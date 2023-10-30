@@ -20,17 +20,13 @@ categories = [
     "py"
 ]
 
-
 def generate_random_file_size():
-    # Generate a random size between 1 KB and 10 MB
     size_in_bytes = random.randint(1024, 100 * 1024 * 1024)
     return size_in_bytes
-
 
 def extract_file_type(file_name):
     _, file_extension = os.path.splitext(file_name)
     return file_extension
-
 
 i = 0
 while i < 100:
@@ -38,7 +34,6 @@ while i < 100:
                          'Mozilla FireFox', 'Spotify', 'VS Code', 'VM Ware'])
     destip = fake.ipv4()
     desthost = random.choice(['windows', 'linux', 'ubuntu'])
-
     desttz = fake.timezone()
     if desthost == 'windows':
         desthostosV = random.choice(
@@ -50,7 +45,6 @@ while i < 100:
         desthostosV = 'Ubuntu 20.04.6 LTS'
     destloctime = datetime.now(pytz.timezone(
         desttz)).strftime('%b %Y-%m-%d %H:%M:%S')
-
     data_check_install = {
         "name": name,
         "installed": random.choice([True, False]),
@@ -62,7 +56,6 @@ while i < 100:
         "destination_time_zone": desttz,
         "destination_local_time": destloctime
     }
-
     file_name_length = random.randint(10, 15)
     fname = fake.text(max_nb_chars=file_name_length)
     fname = fname+random.choice(categories)
@@ -79,9 +72,6 @@ while i < 100:
         "file_size": size(generate_random_file_size()),
         "file_type": extract_file_type(file_name=fname)
     }
-
-    # create(index_name='miniproject',mapping=data_check_install)
-    # print(i)
     dummy_install_apps = {
         "name": name,
         "time_elapsed": random.uniform(30, 50),
@@ -93,7 +83,6 @@ while i < 100:
         "destination_local_time": destloctime,
         "destination_time_zone": desttz
     }
-
     print('data_check_install', data_check_install)
     create(index_name='miniproject', mapping=data_check_install)
     print('dummy_install_files', dummy_install_files)

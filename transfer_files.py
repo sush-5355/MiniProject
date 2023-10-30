@@ -4,29 +4,22 @@ from paramiko_config import connect_to_pc
 import progressbar
 from check_installation import check_os_details
 from utilities.CRUD import create
-# Specify the relative path to the file or directory
+
 relative_path = "files"
-
-# Get the absolute path
 absolute_path = os.path.abspath(relative_path)
-
 
 def transfer_files():
     connection = connect_to_pc()
-
     if not connection['status']:
         return 'Not Connected: ' + connection.get('error', 'Unknown error')
-
     client = connection['connectionClient']
     sftpClient = client.open_sftp()
-
     try:
         files = os.listdir(absolute_path)
         for file in files:
             local_path = os.path.join(absolute_path,file)
             local_file_size = os.path.getsize(local_path)
             remote_path = f'/home/mini/Documents/{file}'
-            print(file)
             widgets = [progressbar.Percentage(), ' ', progressbar.Bar(fill='>'), ' ', progressbar.ETA(format='ETA:  %(eta)8s')]
             progress = progressbar.ProgressBar(widgets=widgets, maxval=local_file_size).start()
             transferred = 0

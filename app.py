@@ -5,9 +5,9 @@ from constant import *
 from check_installation import check_chrome_install, check_os_details, push_to_elastic,check_teamviewer_install,check_vlc_install
 from main import chrome, install_vlc, install_skype, install_teamviewer,createNewUser,changeTimeZone
 from transfer_files import transfer_files
+
 from utilities.CRUD import create
 terminal_columns, _ = shutil.get_terminal_size()
-
 
 available_space = terminal_columns - 2
 centered_text = HEADLINE.center(available_space)
@@ -17,17 +17,15 @@ print(f"#{centered_text}#")
 print(line_of_hashes)
 time.sleep(1)
 print('\n'*5)
-# print('Project Description', DESCRIPTION)
 print('Project Description')
 for char in DESCRIPTION:
-    print(char, end='', flush=True)  # Use end='' to avoid newline and flush=True to force immediate printing
+    print(char, end='', flush=True)
     time.sleep(0.1) 
 print('\n'*2)
 print('Project Objective')
 for char in OBJECTIVE:
-    print(char, end='', flush=True)  # Use end='' to avoid newline and flush=True to force immediate printing
+    print(char, end='', flush=True)
     time.sleep(0.1) 
-# print('Project Objective :', OBJECTIVE)
 while True:
     print()
     print(INPUT_DICT)
@@ -64,8 +62,6 @@ while True:
                         print('\n\n VLC Media Player successfully installed !!!')
                     else:
                         print('\n\n VLC Media Player already installed !!!')
-               
-                    
                 elif m ==3:
                     if not check_teamviewer_install()['installed']:
                         start = time.time()
@@ -76,7 +72,6 @@ while True:
                         print('\n\n TeamViewer successfully installed !!!')
                     else:
                         print('\n\n TeamViewer already installed !!!')
-                    
                 elif m == 4:
                     start = time.time()
                     chrome()
