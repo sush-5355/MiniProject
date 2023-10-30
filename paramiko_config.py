@@ -7,10 +7,9 @@ load_dotenv(dotenv_path='.env')
 hostname = os.environ.get("HOSTNAME")
 username = os.environ.get("USERNAME")
 password = os.environ.get("PASSWORD")
-
 client = paramiko.SSHClient()
 client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-# username = 'mini'
+username = 'mini'
 # password = 'mini'
 def connect_to_pc():
     try:

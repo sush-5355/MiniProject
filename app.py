@@ -1,14 +1,21 @@
 import json
 import shutil
+import sys
 import time
 from constant import *
 from check_installation import check_chrome_install, check_os_details, push_to_elastic,check_teamviewer_install,check_vlc_install
-from main import chrome, install_vlc, install_skype, install_teamviewer,createNewUser,changeTimeZone
+from main import chrome, install_vlc, install_teamviewer,createNewUser,changeTimeZone
 from transfer_files import transfer_files
+from paramiko_config import connect_to_pc
 
 from utilities.CRUD import create
-terminal_columns, _ = shutil.get_terminal_size()
 
+res = connect_to_pc()
+if res['status'] == False:
+    print('PLEASE CHECK THE PARAMIKO CONNECTION')
+    sys.exit()
+
+terminal_columns, _ = shutil.get_terminal_size()
 available_space = terminal_columns - 2
 centered_text = HEADLINE.center(available_space)
 line_of_hashes = '#' * terminal_columns
@@ -20,12 +27,12 @@ print('\n'*5)
 print('Project Description')
 for char in DESCRIPTION:
     print(char, end='', flush=True)
-    time.sleep(0.1) 
+    # time.sleep(0.1) 
 print('\n'*2)
 print('Project Objective')
 for char in OBJECTIVE:
     print(char, end='', flush=True)
-    time.sleep(0.1) 
+    # time.sleep(0.1) 
 while True:
     print()
     print(INPUT_DICT)
