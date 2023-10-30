@@ -20,29 +20,24 @@ def check_chrome_install():
     response = executeCommand(command='google-chrome --version')
     if 'command not found' in response['response'][-1]:
         dic['installed'] = False
-
     else:
         dic['installed'] = True
     return dic
-
 
 def check_teamviewer_install():
     dic = {"name": 'TeamViewer'}
     response = executeCommand(command='teamviewer --version')
     if 'command not found' in response['response'][-1]:
         dic['installed'] = False
-
     else:
         dic['installed'] = True
     return dic
-
 
 def check_vlc_install():
     dic = {"name": 'VLC'}
     response = executeCommand(command='vlc --version | "VLC media player"')
     if 'command not found' in response['response'][-1]:
         dic['installed'] = False
-
     else:
         dic['installed'] = True
     return dic
