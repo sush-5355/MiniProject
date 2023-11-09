@@ -122,6 +122,16 @@ def install_vlc():
     for com in command:
         executeCommandInstall(command=com)
 
+def install_spotify():
+    command = ['sudo snap install spotify']
+    for com in command:
+        executeCommandInstall(command=com)
+
+def install_telegram():
+    command = ['sudo apt update','sudo snap install telegram-desktop']
+    for com in command:
+        executeCommandInstall(command=com)
+
 def install_skype():
     command = ['wget https://repo.skype.com/latest/skypeforlinux-64.deb',
                'sudo dpkg -i skypeforlinux-64.deb']

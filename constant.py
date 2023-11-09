@@ -15,8 +15,10 @@ LIST_OF_APPS = '''
 1 - Google Chrome
 2 - VLC Media Player
 3 - TeamViewer
-4 - All
-5 - Exit
+4-  Spotify
+5-  Telegram
+6 - All
+7 - Exit
 '''
 TRANSFER_FILES = 'This will transfer all the files in folder = Files from this system to remote computer'
 ERROR_MESSAGE = 'Entry can not be blank or other than numeric. Please enter from above choice only !!!'

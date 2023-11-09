@@ -1,14 +1,4 @@
-import json
-import shutil
-import sys
-import time
-from constant import *
-from check_installation import check_chrome_install, check_os_details, push_to_elastic,check_teamviewer_install,check_vlc_install
-from main import chrome, install_vlc, install_teamviewer,createNewUser,changeTimeZone
-from transfer_files import transfer_files
-from paramiko_config import connect_to_pc
-
-from utilities.CRUD import create
+from package_collection import *
 
 res = connect_to_pc()
 if res['status'] == False:
@@ -79,7 +69,30 @@ while True:
                         print('\n\n TeamViewer successfully installed !!!')
                     else:
                         print('\n\n TeamViewer already installed !!!')
-                elif m == 4:
+
+                elif m ==4:
+                    if not check_spotify_install()['installed']:
+                        start = time.time()
+                        install_spotify()
+                        dic = dict(name='spotify',time_elapsed=time.time()-start)
+                        dic.update(check_os_details())
+                        create(index_name='miniproject_installed_apps',mapping=dic)
+                        print('\n\n spotify successfully installed !!!')
+                    else:
+                        print('\n\n spotify already installed !!!')
+
+                elif m ==5:
+                    if not check_telegram_install()['installed']:
+                        start = time.time()
+                        install_telegram()
+                        dic = dict(name='spotify',time_elapsed=time.time()-start)
+                        dic.update(check_os_details())
+                        create(index_name='miniproject_installed_apps',mapping=dic)
+                        print('\n\n telegram successfully installed !!!')
+                    else:
+                        print('\n\n telegram already installed !!!')
+
+                elif m == 6:
                     start = time.time()
                     chrome()
                     install_teamviewer()
@@ -88,7 +101,7 @@ while True:
                     dic.update(check_os_details())
                     create(index_name='miniproject_installed_apps',mapping=dic)
                     print('\n\n ALL APPLICATIONS INSTALLED SUCCESSFULLY !!! \n')
-                elif m == 5:
+                elif m == 7:
                     break
                 else:
                     print('\n\n Please retry from above options only !!!')

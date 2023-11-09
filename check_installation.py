@@ -42,10 +42,32 @@ def check_vlc_install():
         dic['installed'] = True
     return dic
 
+def check_spotify_install():
+    dic = {"name": 'spotify'}
+    response = executeCommand(command='spotify --version | "spotify"')
+    if 'command not found' in response['response'][-1]:
+        dic['installed'] = False
+    else:
+        dic['installed'] = True
+    return dic
+
+def check_telegram_install():
+    dic = {"name": 'telegram'}
+    response = executeCommand(command='telegram --version | "telegram"')
+    if 'command not found' in response['response'][-1]:
+        dic['installed'] = False
+    else:
+        dic['installed'] = True
+    return dic
+
 def push_to_elastic():
     osdetail = check_os_details()
     vlc = check_vlc_install()
     vlc.update(osdetail)
+    spotify = check_spotify_install()
+    spotify.update(osdetail)
+    spotify = check_telegram_install()
+    spotify.update(osdetail)
     teamviewer = check_teamviewer_install()
     teamviewer.update(osdetail)
     response  = create(index_name='miniproject', mapping=teamviewer)
